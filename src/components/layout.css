@@ -8,10 +8,13 @@
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
+  --font-xxl: 64px; 
   --font-lg: 18px;
   --font-md: 16px;
   --font-sm: 14px;
   --font-sx: 12px;
+  --font-sxx: 10px;
+  --font-sxxx: 8px;
   --line-height-loose: 1.75;
   --line-height-normal: 1.5;
   --line-height-dense: 1.1;

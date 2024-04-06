@@ -52,3 +52,37 @@
   max-width: none;
   line-height: var(--line-height-loose);
 }
+
+.button {
+  font-size: var(--font-xxl);
+  color: #ffffff;
+  background: #4cbd63;
+  padding: 10px 20px 15px 20px;
+  text-decoration: none;
+  border: 0;
+}
+
+.button:hover {
+  background: #74cb83;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.instructions {
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
+  font-size: large;
+  font-weight: bold;
+} 
+
+.instructionList  {
+  line-height:80%;
+  text-align: left;
+}
+
+.center {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
