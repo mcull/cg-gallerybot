@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { useAuth0 } from "@auth0/auth0-react";
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -34,6 +34,7 @@ const IndexPage = () => {
   const check = "✅";
 
   return (
+  <GoogleOAuthProvider clientId="49717070246-9k1671m2i4d31872r67117f5d0aekdbf.apps.googleusercontent.com">
   <Layout>
     <div className={styles.center}>
       <div className={styles.textCenter}>
@@ -46,20 +47,22 @@ const IndexPage = () => {
           <li>When I'm done, be sure to read through my results. I make mistakes, I'm only robot! <checkbox/></li>
         </ol>
         <div>
-          {typeof(window) !== undefined && isLoggedIn ? (
+          {isLoggedIn ? (
             <div>
               Spreadsheet picker goes here
             </div>
           ) : (
+            
             <GoogleLogin className={styles.button}
-              onSuccess={onSuccess}
-              onFailure={onFailure}
-            />
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+          />
           )}
         </div>
       </div>
     </div>
   </Layout>
+  </GoogleOAuthProvider>
 )}
 
 export const Head = () => <Seo title="Home" />
