@@ -1,6 +1,6 @@
 //gatsby-browser.js
 import React from 'react';
-import { Auth0Provider } from '@auth0/auth0-react';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { navigate } from 'gatsby';
 
 const onRedirectCallback = (appState) => {
@@ -9,14 +9,9 @@ const onRedirectCallback = (appState) => {
 };
 
 export const wrapRootElement = ({ element }) => {
- return (
-  <Auth0Provider
-   domain={process.env.GATSBY_AUTH0_DOMAIN}
-   clientId={process.env.GATSBY_AUTH0_CLIENTID}
-   redirectUri={typeof(window) !== undefined && window.location.origin}
-   onRedirectCallback={onRedirectCallback}
-   >
-    {element}
- </Auth0Provider>
- );
+    return (
+        <GoogleOAuthProvider clientId="49717070246-9k1671m2i4d31872r67117f5d0aekdbf.apps.googleusercontent.com">
+            {element}
+        </GoogleOAuthProvider>
+    );
 };

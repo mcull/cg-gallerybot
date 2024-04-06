@@ -41,12 +41,6 @@ const Header = ({ siteTitle }) => {
       </div>
     </div>
     </Link>
-    {isAuthenticated && (
-     <div className="logout" 
-          onClick={() => { logout({ returnTo: window.location.origin });}}
-          style={{cursor: "pointer",
-                  color: `blue`}}  
-        >[Log out]</div>)}
     <img
       alt="Creative Growth logo"
       height={20}
