@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { useAuth0 } from "@auth0/auth0-react";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-
+import { GoogleLogin, googleLogout, GoogleOAuthProvider } from "@react-oauth/google";
+import GoogleLogoutButton from "../components/google-logout";
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
@@ -23,12 +23,19 @@ const IndexPage = () => {
 
   const onSuccess = (response) => {
     setIsLoggedIn(true);
+    setPhase(2);
     console.log(response);
   };
 
   const onFailure = (response) => {
     console.log(response);
   };
+
+  const logout = () => {
+    googleLogout();
+    setIsLoggedIn(false);
+    setPhase(1);
+  }
 
   const [phase, setPhase] = React.useState(isLoggedIn ? 2 : 1);
   const check = "✅";
@@ -50,13 +57,14 @@ const IndexPage = () => {
           {isLoggedIn ? (
             <div>
               Spreadsheet picker goes here
+              <div onClick={logout}>logout</div>
+              
             </div>
-          ) : (
-            
-            <GoogleLogin className={styles.button}
+          ) : (        
+            <GoogleLogin
             onSuccess={onSuccess}
             onFailure={onFailure}
-          />
+            />
           )}
         </div>
       </div>
