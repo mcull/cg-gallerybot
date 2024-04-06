@@ -46,7 +46,7 @@ const IndexPage = () => {
           <li>When I'm done, be sure to read through my results. I make mistakes, I'm only robot! <checkbox/></li>
         </ol>
         <div>
-          {isLoggedIn ? (
+          {typeof(window) !== undefined && isLoggedIn ? (
             <div>
               Spreadsheet picker goes here
             </div>
