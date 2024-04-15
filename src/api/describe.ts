@@ -1,5 +1,5 @@
 import { OpenAI } from 'openai';
-import { GoogleSpreadsheet, GoogleSpreadsheetCell } from 'google-spreadsheet';
+import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 
 const SCOPES = [
