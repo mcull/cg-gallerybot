@@ -30,7 +30,7 @@ const Header = ({ siteTitle }) => {
         alt="Cute little art robot"
         height={64}
         style={{ margin: 0 }}
-        src="/static/artbot5000.png"
+        src="/artbot5000.png"
       />
       </div> 
       <div style={{
@@ -45,7 +45,7 @@ const Header = ({ siteTitle }) => {
       alt="Creative Growth logo"
       height={20}
       style={{ margin: 0 }}
-      src="/static/CG_logo.png"
+      src="/CG_logo.png"
     />
   </header>
 )}
