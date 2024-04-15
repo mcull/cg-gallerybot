@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { GoogleSpreadsheet } from "google-spreadsheet";
-import { useAuth0 } from "@auth0/auth0-react";
-import { GoogleLogin, googleLogout, GoogleOAuthProvider } from "@react-oauth/google";
-import GoogleLogoutButton from "../components/google-logout";
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
-
-const CLIENT_ID = '49717070246-9k1671m2i4d31872r67117f5d0aekdbf.apps.googleusercontent.com';
-const API_KEY = 'AIzaSyDMVUc4jpAANVvejAm9TqVpXj55GYObDzw';
-const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
-
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { useForm } from "react-hook-form"
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 
 const checkOrIcon = (phase, currentPhase, icon) => {
@@ -19,58 +13,99 @@ const checkOrIcon = (phase, currentPhase, icon) => {
 }
 
 const IndexPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const onSuccess = (response) => {
-    setIsLoggedIn(true);
-    setPhase(2);
-    console.log(response);
-  };
+  const [metaMsg, setMetaMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [botEmailCopied, setBotEmailCopied] = useState(false);
+  const [spreadsheetUrlPasted, setSpreadsheetUrlPasted] = useState(false);
+  const [describeArtClicked, setDescribeArtClicked] = useState(false);
+  const [imageCount, setImageCount] = useState(0);
+  const [describedCount, setDescribedCount] = useState(0);
 
-  const onFailure = (response) => {
-    console.log(response);
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const logout = () => {
-    googleLogout();
-    setIsLoggedIn(false);
-    setPhase(1);
+  const onSubmit = data => {
+    console.log(data);
+    fetch(`/api/images`, {
+      method: `POST`,
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": `application/json`,
+      },
+    })
+      .then(res => res.json())
+      .then(body => {
+        if (body.error) {
+          setErrorMsg(body.error);
+        } else {
+          const images = body.images;
+          const imageCount = images.length;
+          setMetaMsg(`${imageCount} images found. Descriptions are being generated...`);
+          setImageCount(imageCount);
+
+          const describeImage = (images, index) => {
+            if (index >= images.length) { return; }
+            
+            fetch(`/api/describe`, {
+              method: `POST`,
+              body: JSON.stringify({ image: images[index] }),
+              headers: {
+                "content-type": `application/json`,
+              },
+            })
+            .then(res => res.json())
+            .then(body => {
+              if (body.error) {
+                setErrorMsg(body.error);
+              } else {
+                setDescribedCount(index+1);
+                describeImage(images, index + 1);
+              }
+            });
+          }
+          describeImage(images, 0);
+        }
+      })
   }
+  console.log({ errors })
 
-  const [phase, setPhase] = React.useState(isLoggedIn ? 2 : 1);
-  const check = "✅";
 
   return (
-  <GoogleOAuthProvider clientId="49717070246-9k1671m2i4d31872r67117f5d0aekdbf.apps.googleusercontent.com">
   <Layout>
     <div className={styles.center}>
       <div className={styles.textCenter}>
         <div className={styles.instructions}>To generate descriptions for Creative Growth artists' work, please:</div>
-        <ol className={styles.instructionList}>
-          <li>Sign in with a Google account that has permission to edit the spreadsheet { checkOrIcon(1, phase, "☝️") }</li>
-          <li>Pick the spreadsheet with artworks to label { checkOrIcon(2, phase, "✌️") }</li> 
-          <li>Hit the "Describe art, please" button { checkOrIcon(3, phase, "🫵") }</li>
-          <li>Relax with the progress bar while I take care of business { checkOrIcon(4, phase, "⚙️") }</li>
-          <li>When I'm done, be sure to read through my results. I make mistakes, I'm only robot! <checkbox/></li>
-        </ol>
-        <div>
-          {isLoggedIn ? (
-            <div>
-              Spreadsheet picker goes here
-              <div onClick={logout}>logout</div>
-              
+        
+        <div className={styles.instructionList}>
+          <div>{botEmailCopied ? "👍" : "☝️" } Add <CopyToClipboard text={`image-describer@creative-growth-gallery-bot.iam.gserviceaccount.com`}
+          onCopy={() => {setBotEmailCopied(true)}}><span className={ styles.botEmail }>the bot email 📋</span></CopyToClipboard> to your spreadsheet, with editor permissions</div>
+          
+          <div>{spreadsheetUrlPasted ? "👍" : "✌️" } Paste the URL of that spreadsheet into the box below</div> 
+          <div>{describeArtClicked ? "👍" : "🫵" } Hit the "Describe art" button</div>
+
+          <div className={ styles.actionPane }>
+            <div style={{ display: imageCount > 0 ? "none" : "block" }}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <input id="spreadsheet" {...register("spreadsheet")} type="text" onChange={() => {setSpreadsheetUrlPasted(true); }} className={ styles.spreadsheet }></input> 
+                <input type="submit" value="Describe art!" />
+              </form>
             </div>
-          ) : (        
-            <GoogleLogin
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            />
-          )}
-        </div>
+            <div>{ errorMsg }</div>
+            <div>{ metaMsg }</div>
+            <div>
+              {imageCount > 0 && <CircularProgressbar className={styles.progress} value={describedCount} maxValue={imageCount} text={describedCount} />}
+            
+            </div> 
+          </div>
+        </div> 
+        
       </div>
     </div>
   </Layout>
-  </GoogleOAuthProvider>
 )}
 
 export const Head = () => <Seo title="Home" />

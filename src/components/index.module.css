@@ -53,18 +53,9 @@
   line-height: var(--line-height-loose);
 }
 
-.button {
-  font-size: var(--font-xxl);
-  color: #ffffff;
-  background: #4cbd63;
-  padding: 10px 20px 15px 20px;
-  text-decoration: none;
-  border: 0;
-}
 
-.button:hover {
-  background: #74cb83;
-  text-decoration: none;
+
+.loginButton:hover {
   cursor: pointer;
 }
 
@@ -76,7 +67,7 @@
 } 
 
 .instructionList  {
-  line-height:80%;
+  line-height:120%;
   text-align: left;
 }
 
@@ -84,5 +75,32 @@
   max-width: fit-content;
   margin-left: auto;
   margin-right: auto;
+}
+
+.logout {
+  color: var(--color-primary);
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.botEmail {
+  border: 1px dashed #cccccc;
+  cursor: pointer;
+  color: blue;
+}
+
+.spreadsheet {
+  box-sizing: border-box;
+  width: 80%;
+}
+
+.actionPane {
+  margin-top: var(--space-3);
+}
+
+.progress {
+  height: 100px;
+  width: 100px;
 }
 
