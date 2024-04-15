@@ -90,17 +90,71 @@
   color: blue;
 }
 
-.spreadsheet {
-  box-sizing: border-box;
-  width: 80%;
-}
-
 .actionPane {
   margin-top: var(--space-3);
 }
 
+.progressRow {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-5);
+}
+
+.imageList {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.imageListItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.imageContainer {
+  margin-right: 2em;
+  min-width: 150px;
+  text-align: right;
+}
+
+.imageToDescribe {
+  max-height: 100px;
+}
+
+.description {
+  vertical-align: top;
+}
+
 .progress {
-  height: 100px;
-  width: 100px;
+  min-height: 100px;
+  max-height: 100px;
+  margin: var(--space-5);
+}
+
+.error {
+  color: red;
+}
+
+form {
+  overflow: hidden;
+}
+label {
+  float: left;
+  text-align: right;
+  width: 200px;
+  padding-right: 24px;
+  margin-bottom: var(--space-2);
+  font-size: small;
+}
+input {
+  float: left;
+  width: calc(100% - 200px);
+  margin-bottom: var(--space-2);
+}
+button {
+  float: right;
+  width: calc(100% - 200px);
+  margin-bottom: var(--space-2);
+  cursor: pointer;
 }
 
