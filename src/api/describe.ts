@@ -1,4 +1,4 @@
-const { OpenAI } = require('openai');
+import { OpenAI } from 'openai';
 import { GoogleSpreadsheet, GoogleSpreadsheetCell } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 
@@ -19,9 +19,6 @@ export default function handler(req, res) {
     const openai = new OpenAI({
         apiKey: process.env.GATSBY_OPENAI_API_KEY,
     });
-
-    //const imagePath = req.body.image.imageUrl;
-    console.log(req.body)
     const imagePath = req.body.image.imageUrl;
     const spreadsheet = req.body.spreadsheet;
     const sheetName = req.body.sheet;

@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "creative-growth-gallery-bot",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A utilty website for hosting automation for the Creative Growth gallery",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Marc Cull <marc.cull@gmail.com>",
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "@react-oauth/google": "^0.12.1",
