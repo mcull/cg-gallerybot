@@ -62,7 +62,7 @@ const IndexPage = () => {
             const imageCount = images.length;
             const descriptionCol = body.descriptionCol;
             const imageRow = body.imageRow;
-            setMetaMsg(`${imageCount} images found. Descriptions are being generated...`);
+            setMetaMsg(`${imageCount} images found. Total time to describe approx ${Math.round(imageCount/5)} minutes.`);
             setImageCount(imageCount);
   
             const describeImage = (images, index) => {
