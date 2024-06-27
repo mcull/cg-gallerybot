@@ -30,7 +30,7 @@ export default function handler(req, res) {
         console.log('Describing image at: ', imagePath);
         try {
             const response = await openai.chat.completions.create({
-            model: "gpt-4-vision-preview",
+            model: "gpt-4o",
             messages: [
                 {
                 role: "user",
