@@ -13,7 +13,8 @@ const jwtFromEnv = new JWT({
     scopes: SCOPES,
 });
 
-const prompt = `Describe this artwork with no more than three or two sentences. Include any relevant information that you think would be helpful for someone who is blind or visually impaired. Avoid making assumptions about gender. If you are inclined to describe the gender presentation of a figure, use descriptive terms like fem, femme and masc. DO NOT start sentences with 'The artwork is...' or 'This is a picture of...' or 'Presented is...'. Instead, describe the content of the image, starting with the most important details.`;
+//const prompt = `Describe this artwork with no more than four or five sentences. Include any relevant information that you think would be helpful for someone who is blind or visually impaired. Avoid making assumptions about gender. If you are inclined to describe the gender presentation of a figure, use descriptive terms like fem, femme and masc. DO NOT start sentences with 'The artwork is...' or 'This is a picture of...' or 'Presented is...'. Instead, describe the content of the image, starting with the most important details.`;
+const prompt = `Describe this artwork with no more than four or five sentences. Include any relevant information that you think would be helpful for someone who is blind or visually impaired. Avoid making assumptions about gender. If you are inclined to describe the gender presentation of a figure, use descriptive terms like fem, femme and masc. DO NOT start sentences with 'The artwork is...' or 'This is a picture of...' or 'Presented is...'. Instead, describe the artist's choices in terms of the content of the image, starting with the most important details. Emphasize the artist's choices, such as medium and style and color, using phrases like 'The artist...' and 'Here we can see...'"`;
 
 export default function handler(req, res) {
     const openai = new OpenAI({
